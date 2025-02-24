@@ -1,43 +1,39 @@
 {
   "last_node_id": 20,
-  "last_link_id": 24,
+  "last_link_id": 25,
   "nodes": [
     {
-      "id": 6,
-      "type": "CLIPTextEncode",
+      "id": 10,
+      "type": "ControlNetLoader",
       "pos": [
-        351.5631408691406,
-        -37.57125473022461
+        -77.62154388427734,
+        335.1720275878906
       ],
       "size": [
-        422.84503173828125,
-        164.31304931640625
+        315,
+        58
       ],
-      "flags": {},
-      "order": 4,
+      "flags": {
+        "collapsed": false
+      },
+      "order": 0,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 3
-        }
-      ],
+      "inputs": [],
       "outputs": [
         {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
+          "name": "CONTROL_NET",
+          "type": "CONTROL_NET",
           "links": [
-            15
+            13
           ],
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "CLIPTextEncode"
+        "Node name for S&R": "ControlNetLoader"
       },
       "widgets_values": [
-        "cat girl，blue hair"
+        "control_sd15_ascii.ckpt"
       ]
     },
     {
@@ -90,21 +86,112 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        623136919534928,
+        171643081172631,
         "randomize",
         20,
-        8,
+        7,
         "dpmpp_2m",
         "normal",
         1
       ]
     },
     {
+      "id": 15,
+      "type": "AsciiGenerator",
+      "pos": [
+        414.82708740234375,
+        695.6749267578125
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            22,
+            24
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "AsciiGenerator"
+      },
+      "widgets_values": [
+        512,
+        512,
+        -1
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -79.92708587646484,
+        186.48995971679688
+      ],
+      "size": [
+        315,
+        98
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3,
+            5
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            8,
+            25
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "meinamix_meinaV11.safetensors"
+      ]
+    },
+    {
       "id": 13,
       "type": "ControlNetApplyAdvanced",
       "pos": [
-        872.409912109375,
-        176.6367950439453
+        907.0633544921875,
+        128.6155242919922
       ],
       "size": [
         315,
@@ -137,7 +224,7 @@
         {
           "name": "vae",
           "type": "VAE",
-          "link": null,
+          "link": 25,
           "shape": 7
         }
       ],
@@ -169,67 +256,128 @@
       ]
     },
     {
-      "id": 4,
-      "type": "CheckpointLoaderSimple",
+      "id": 5,
+      "type": "EmptyLatentImage",
       "pos": [
-        -79.92708587646484,
-        186.48995971679688
+        863.6486206054688,
+        -68.44358825683594
       ],
       "size": [
         315,
-        98
+        106
       ],
       "flags": {},
-      "order": 0,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
-          "name": "MODEL",
-          "type": "MODEL",
+          "name": "LATENT",
+          "type": "LATENT",
           "links": [
-            1
+            19
           ],
           "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            3,
-            5
-          ],
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            8
-          ],
-          "slot_index": 2
         }
       ],
       "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
+        "Node name for S&R": "EmptyLatentImage"
       },
       "widgets_values": [
-        "meinamix_meinaV11.safetensors"
+        512,
+        512,
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        371.0709533691406,
+        428.8175964355469
+      ],
+      "size": [
+        425.27801513671875,
+        180.6060791015625
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            16
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        330.1451721191406,
+        -61.82234573364258
+      ],
+      "size": [
+        407.7224426269531,
+        174.93931579589844
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            15
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "1girl, animal ears, brown hair, solo, (blue hood), cat ears, animal ear fluff, blush, looking at viewer, short hair, star \\(sky\\), star \\(symbol\\), brown eyes, night, sky, bangs, crescent, hood down, long sleeves, upper body, (blue hoodie), starry sky"
       ]
     },
     {
       "id": 12,
       "type": "LoadImage",
       "pos": [
-        -115.07633209228516,
-        620.9244995117188
+        -125.89720153808594,
+        -188.3462371826172
       ],
       "size": [
         315,
         314
       ],
       "flags": {},
-      "order": 1,
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -251,16 +399,43 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "b_3d9ac1cd6c351b90c5fa8afb1cf483c2 (1).jpg",
+        "b5a4d5844be4d6d4ffad3c95364e72ec_720.jpg",
         "image"
       ]
+    },
+    {
+      "id": 16,
+      "type": "PreviewImage",
+      "pos": [
+        896.9310302734375,
+        485.73779296875
+      ],
+      "size": [
+        295.5821533203125,
+        321.5135192871094
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 22
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
     },
     {
       "id": 8,
       "type": "VAEDecode",
       "pos": [
-        1626.1695556640625,
-        419.21405029296875
+        1270.1103515625,
+        412.8741149902344
       ],
       "size": [
         210,
@@ -297,114 +472,15 @@
       "widgets_values": []
     },
     {
-      "id": 16,
-      "type": "PreviewImage",
-      "pos": [
-        902.6511840820312,
-        513.5145263671875
-      ],
-      "size": [
-        295.5821533203125,
-        321.5135192871094
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 22
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 5,
-      "type": "EmptyLatentImage",
-      "pos": [
-        863.6486206054688,
-        -68.44358825683594
-      ],
-      "size": [
-        315,
-        106
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            19
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EmptyLatentImage"
-      },
-      "widgets_values": [
-        640,
-        640,
-        4
-      ]
-    },
-    {
-      "id": 7,
-      "type": "CLIPTextEncode",
-      "pos": [
-        321.7650451660156,
-        363.89190673828125
-      ],
-      "size": [
-        425.27801513671875,
-        180.6060791015625
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 5
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            16
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        "nsfw, paintings, cartoon, anime, sketches, worst quality, low quality, normal quality, lowres, watermark, monochrome, grayscale, ugly, blurry, Tan skin, dark skin, black skin, skin spots, skin blemishes, age spot, glans, disabled, distorted, bad anatomy, morbid, malformation, amputation, bad proportions, twins, missing body, fused body, extra head, poorly drawn face, bad eyes, deformed eye, unclear eyes, cross-eyed, long neck, malformed limbs, extra limbs, extra arms, missing arms, bad tongue, strange fingers, mutated hands, missing hands, poorly drawn hands, extra hands, fused hands, connected hand, bad hands, wrong fingers, missing fingers, extra fingers, 4 fingers, 3 fingers, deformed hands, extra legs, bad legs, many legs, more than two legs, bad feet, wrong feet, extra feets,"
-      ]
-    },
-    {
       "id": 9,
       "type": "SaveImage",
       "pos": [
-        1876.7493896484375,
-        417.9114074707031
+        711.3839111328125,
+        -393.45184326171875
       ],
       "size": [
-        210,
-        270
+        260.7888488769531,
+        302.6064453125
       ],
       "flags": {},
       "order": 11,
@@ -420,81 +496,6 @@
       "properties": {},
       "widgets_values": [
         "ComfyUI"
-      ]
-    },
-    {
-      "id": 10,
-      "type": "ControlNetLoader",
-      "pos": [
-        -100.97201538085938,
-        371.7206115722656
-      ],
-      "size": [
-        315,
-        58
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 3,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "CONTROL_NET",
-          "type": "CONTROL_NET",
-          "links": [
-            13
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ControlNetLoader"
-      },
-      "widgets_values": [
-        "control_sd15_ascii.ckpt"
-      ]
-    },
-    {
-      "id": 15,
-      "type": "AsciiGenerator",
-      "pos": [
-        412.1321105957031,
-        737.7982177734375
-      ],
-      "size": [
-        315,
-        106
-      ],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 20
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            22,
-            24
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "AsciiGenerator"
-      },
-      "widgets_values": [
-        640,
-        640,
-        -1
       ]
     }
   ],
@@ -618,16 +619,24 @@
       13,
       3,
       "IMAGE"
+    ],
+    [
+      25,
+      4,
+      2,
+      13,
+      4,
+      "VAE"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5730855330116827,
+      "scale": 0.7627768444385615,
       "offset": [
-        397.66744290470615,
-        203.06759683945143
+        1069.4419473704884,
+        605.3448592326731
       ]
     },
     "node_versions": {
