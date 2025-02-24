@@ -1,0 +1,17 @@
+[project]
+name = "comfyui-ascii-art"
+description = "ascii art preprocessors in ComfyUI"
+version = "1.0"
+license = { text = "MIT License" }
+dependencies = [
+  "pillow==9.5",
+]
+
+[project.urls]
+Repository = "https://github.com/Deep-Neko/ComfyUI_ascii_art"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "DeepNeko"
+DisplayName = "ascii-art-comfyui"
+Icon = ""
